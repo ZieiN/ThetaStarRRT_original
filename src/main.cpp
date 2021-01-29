@@ -85,8 +85,8 @@ int main()
 //            return 0;
             }
             vector<State> path = thetaStarRrt.getPath();
-            tm1+=thetaStarRrt.times1;
-            tm+=thetaStarRrt.times;
+            tm1+=thetaStarRrt.time1;
+            tm+=thetaStarRrt.time2;
 //            ofstream Len;
 //            Len.open("../Output/path.txt");
 //            Len << "Path points with orientation:" << endl;

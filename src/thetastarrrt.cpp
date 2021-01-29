@@ -42,12 +42,14 @@ bool ThetaStarRrt::search(int stX, int stY, double stOrient, int goalX, int goal
         return false;
     }
     vector<Position> geoPath = thetaStar_.getGeoPath();
+    time1 = double( clock () - beginTime )/  CLOCKS_PER_SEC;
     cout<<"Theta* finished.. Time elapsed till now: "<<double( clock () - beginTime ) /  CLOCKS_PER_SEC<<endl;
     cout<<"RRT started.."<<endl;
     bool pathFound = rrt_.rrtOnPath(mp, geoPath, stOrient, goalOrient);
     if(!pathFound)
         return false;
     path_ = rrt_.getPath();
+    time2 = double( clock () - beginTime ) /  CLOCKS_PER_SEC;
     cout <<"RRT finished.. Time elapsed till now: "<< double( clock () - beginTime ) /  CLOCKS_PER_SEC<<endl;
     return true;
 }

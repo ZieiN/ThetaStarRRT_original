@@ -36,13 +36,10 @@ goalEps_ = other.goalEps_;
 lenSamplingOnTheCorner_ = other.lenSamplingOnTheCorner_;
 goalOrientEps_ = other.goalOrientEps_;
 numSamplingNodes_ = other.numSamplingNodes_;
-cout<<1<<endl;
 posq_ = new Posq(*other.posq_);
-cout<<posq_<<" "<<other.posq_<<endl;
 }
 
 Rrt &Rrt::operator=(const Rrt &other) {
-    cout<<"#1"<<endl;
     if (this != &other)
     {
         widthSamplingCorridor_ = other.widthSamplingCorridor_;
@@ -54,7 +51,6 @@ Rrt &Rrt::operator=(const Rrt &other) {
         lenSamplingOnTheCorner_ = other.lenSamplingOnTheCorner_;
         goalOrientEps_ = other.goalOrientEps_;
         numSamplingNodes_ = other.numSamplingNodes_;
-        cout<<"1"<<endl;
         posq_ = new Posq(*other.posq_);
     }
     return *this;
@@ -69,11 +65,9 @@ void Rrt::setParams(map<string, double> &param, Posq *posq){
 	goalEps_ = param["goal_EPS"];
 	goalOrientEps_ = param["goal_orient_EPS"];
 	numSamplingNodes_ = param["num_sampling_nodes"];
-    cout<<(posq->kRho_)<<" "<<(posq->kAlpha_)<<endl;
 	posq_ = new Posq(*posq);
-    cout<<posq_->kRho_<<posq_->kAlpha_<<endl;
 }
-// This function returns true if there are no obstacles in the straigt line between two points in the given map.
+// This function returns true if there are no obstacles in the straight line between two points in the given map.
 bool Rrt::isThereLineOfSight(const Map &mp, int x0, int y0, int x1, int y1){
 //	if(max(fabs(x0-x1), fabs(y0-y1)) > posq_->simulationMaxDistance()){
 //		return false;
@@ -140,7 +134,6 @@ pair<bool, State> Rrt::steer(const Map &mp, const State &s1, const State &s2, do
     if(!pathFound)
         return {0, ans};
     RobotState lastState = posq_->getLastRobotSate();
-//    cout<<hypot(lastState.getX()-s2.x_, lastState.getY()-s2.y_)<<endl;
     if(hypot(lastState.getX()-s2.x_, lastState.getY()-s2.y_)>eps) {
         return {0, ans};
     }
@@ -233,8 +226,7 @@ bool Rrt::rrtOnPath(const Map &mp, const vector<Position>& geoPath, double initO
 	State goal = State(geoPath.back().x_, geoPath.back().y_, goalOrient);
 	double mn;
 	int mnId = -1;
-	int div = numSamplingNodes_/geoPath.size(), id = -1;
-	double lenBias = 0, len = 0, full_len = 0;
+	double full_len = 0;
 	for(int i=0; i+1<geoPath.size(); ++i){
 		full_len+=hypot(geoPath[i].x_-geoPath[i+1].x_, geoPath[i].y_-geoPath[i+1].y_);
 	}
@@ -263,7 +255,6 @@ bool Rrt::rrtOnPath(const Map &mp, const vector<Position>& geoPath, double initO
 		if(dist(xNew.second, goal) <= posq_->simulationMaxDistance()){
 			auto toGoalNode = steer(mp, xNew.second, goal, goalEps_);
             out<<toGoalNode.second.x_<<" "<<toGoalNode.second.y_<<" "<<goal.x_<<" "<<goal.y_<<endl;
-//            cout<<"#"<<" "<<toGoalNode.first<<" "<<hypot(toGoalNode.second.x_-goal.x_, toGoalNode.second.y_-goal.y_)<<endl;
 			if(toGoalNode.first && dist(toGoalNode.second, goal) < goalEps_ && distOrient(toGoalNode.second.orient_, goal.orient_) < goalOrientEps_)
 			{
 				toGoalNode.second.parent_ = (int)(tree_.size()) - 1;
@@ -276,16 +267,6 @@ bool Rrt::rrtOnPath(const Map &mp, const vector<Position>& geoPath, double initO
 			}
 		}
 	}
-//	int i = 0;
-//	for(auto it:tree_){
-//		if(dist(it, goal) < goalEps_ && distOrient(it.orient_, goal.orient_) < goalOrientEps_){
-//			if (mnId == -1 || it.gCost_ < mn){
-//				mn = it.gCost_;
-//				mnId = i;
-//			}
-//		}
-//		++i;
-//	}
 	out.close();
 	if(mnId == -1)
 		return false;
