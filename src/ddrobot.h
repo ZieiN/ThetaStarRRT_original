@@ -8,7 +8,8 @@ class DDRobot : public AbstractRobot
 public:
 	DDRobot();
 	~DDRobot() override;
-	DDRobot(const DDRobot &other);
+    DDRobot &operator=(const DDRobot &other);
+    DDRobot(const DDRobot &other);
 	void setParams(map<string, double> param) override;
 	DDRobot* clone() const override;
     void oneMoveStep(double velDesired, double angVelDesired, double &x, double &y, double &orient, double &v,double &angV, double &strAng, double dt);

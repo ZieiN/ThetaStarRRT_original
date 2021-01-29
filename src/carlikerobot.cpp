@@ -9,12 +9,23 @@ CarLikeRobot::CarLikeRobot(){
 CarLikeRobot::~CarLikeRobot(){
 	// Default destructor
 }
-CarLikeRobot::CarLikeRobot(const CarLikeRobot &other) : AbstractRobot(other) {
+CarLikeRobot::CarLikeRobot(const CarLikeRobot &other){
 	maxV_ = other.maxV_;
 	maxAcc_ = other.maxAcc_;
 	maxSteerAngle_ = other.maxSteerAngle_;
 	maxOmega_ = other.maxOmega_;
 	wheelBase_ = other.wheelBase_;
+}
+CarLikeRobot &CarLikeRobot::operator=(const CarLikeRobot &other){
+    if (this != &other)
+    {
+        maxV_ = other.maxV_;
+        maxAcc_ = other.maxAcc_;
+        maxSteerAngle_ = other.maxSteerAngle_;
+        maxOmega_ = other.maxOmega_;
+        wheelBase_ = other.wheelBase_;
+    }
+    return *this;
 }
 void CarLikeRobot::setParams(map<string, double> param){
 	maxV_ = param["max_velocity"];

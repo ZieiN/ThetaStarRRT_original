@@ -35,3 +35,14 @@ bool operator < (const Node &a, const Node &b)
     }
     return a.gCost_ + a.hCost_ < b.gCost_ + b.hCost_;
 }
+
+Node &Node::operator=(const Node &other) {
+    if(this != &other){
+        x_ = other.x_;
+        y_ = other.y_;
+        father_ = other.father_;
+        gCost_ = other.gCost_;
+        hCost_ = other.hCost_;
+    }
+    return *this;
+}

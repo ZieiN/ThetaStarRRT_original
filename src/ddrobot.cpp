@@ -14,6 +14,15 @@ DDRobot::DDRobot(const DDRobot &other) : AbstractRobot(other) {
 	maxAcc_ = other.maxAcc_;
 	wheelBase_ = other.wheelBase_;
 }
+
+DDRobot &DDRobot::operator=(const DDRobot &other){
+    if(this!=&other){
+        maxV_ = other.maxV_;
+        maxAcc_ = other.maxAcc_;
+        wheelBase_ = other.wheelBase_;
+    }
+    return *this;
+}
 void DDRobot::setParams(map<string, double> param){
 	maxV_ = param["max_velocity"];
 	maxAcc_ = param["max_acceleration"];

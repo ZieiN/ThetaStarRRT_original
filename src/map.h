@@ -6,10 +6,12 @@ public:
 	Map (int, int);
 	Map (int, int, bool**);
 	Map (const Map&);
+	Map &operator=(const Map&);
 	int getWidth() const;
 	void setWidth(int value);
 	int getHeight() const;
 	void setHeight(int value);
+	bool ** getMap() const;
 	void setMap(int, int, bool**);
 	void setCell(int i, int j, bool value);
 	bool cellIsObstacle(int x, int y) const;

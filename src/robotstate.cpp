@@ -77,3 +77,15 @@ void RobotState::setSteerAngle(double steerAngle) {
 void RobotState::setOrientation(double orientation) {
     orientation_ = orientation;
 }
+
+RobotState &RobotState::operator=(const RobotState &other) {
+    if(this != &other){
+        x_ = other.x_;
+        y_ = other.y_;
+        orientation_ = other.orientation_;
+        steerAngle_ = other.steerAngle_;
+        vel_ = other.vel_;
+        angVel_ = other.angVel_;
+    }
+    return *this;
+}

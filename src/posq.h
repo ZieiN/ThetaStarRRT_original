@@ -12,15 +12,15 @@ class Posq{
 public:
     Posq();
     ~Posq();
+    Posq(const Posq& other);
     Posq &operator=(const Posq &other);
-    Posq(const Posq &other);
     void setParams(map<string, double>&params, AbstractRobot *robot);
     bool steer(const RobotState &s1, const RobotState &s2, const Map &mp, double eps);
     double simulationMaxDistance();
     vector<RobotState> getFoundTrajectory();
     RobotState getLastRobotSate();
     double getPathCost() const;
-public:
+private:
     double kRho_;
     double kAlpha_;
     double kVi_;

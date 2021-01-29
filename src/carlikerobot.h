@@ -9,7 +9,8 @@ public:
 	CarLikeRobot();
 	~CarLikeRobot() override;
 	CarLikeRobot(const CarLikeRobot &other);
-	void setParams(map<string, double> param) override;
+    CarLikeRobot &operator=(const CarLikeRobot &other);
+    void setParams(map<string, double> param) override;
 	CarLikeRobot* clone() const override;
     void oneMoveStep(double velDesired, double angVelDesired, double &x, double &y, double &orient, double &v,double &angV, double &strAng, double dt);
 	double getMaxV() const;

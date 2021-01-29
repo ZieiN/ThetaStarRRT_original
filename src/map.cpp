@@ -47,6 +47,12 @@ Map::Map(const Map &other)
         }
     }
 }
+Map &Map::operator=(const Map &mp){
+    if(this!=&mp) {
+        setMap(mp.getWidth(), mp.getHeight(), mp.getMap());
+    }
+    return *this;
+}
 void Map::setMap(int width, int height, bool ** cell){
     setWidth(width);
     setHeight(height);
@@ -83,6 +89,10 @@ void Map::setHeight(int value){
     }
 	height_ = value;
 }
+bool **Map::getMap() const {
+    return cell_;
+}
+
 void Map::setCell(int i, int j, bool value){
     cell_[i][j]=value;
 }

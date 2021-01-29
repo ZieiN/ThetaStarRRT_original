@@ -14,6 +14,8 @@ public:
 
     RobotState(const RobotState &other);
 
+    RobotState &operator=(const RobotState &other);
+
     void setVel(double vel);
 
     void setAngVel(double angVel);

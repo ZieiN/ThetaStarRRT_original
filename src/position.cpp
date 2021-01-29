@@ -15,3 +15,11 @@ Position::Position(const Position &other){
 	x_ = other.x_;
 	y_ = other.y_;
 }
+
+Position &Position::operator=(const Position &other) {
+    if(this != &other){
+        x_ = other.x_;
+        y_ = other.y_;
+    }
+    return *this;
+}

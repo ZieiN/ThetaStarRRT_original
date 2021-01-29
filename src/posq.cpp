@@ -18,6 +18,29 @@ Posq::~Posq() {
     // default destructor
 }
 
+Posq::Posq(const Posq &other) {
+    kRho_ = other.kRho_;
+    kPhi_ = other.kPhi_;
+    kAlpha_ = other.kAlpha_;
+    kVi_ = other.kVi_;
+    dt_ = other.dt_;
+    numIterations_ = other.numIterations_;
+    robot_ = other.robot_->clone();
+}
+
+Posq &Posq::operator=(const Posq &other) {
+    if (this != &other) {
+        kRho_ = other.kRho_;
+        kPhi_ = other.kPhi_;
+        kAlpha_ = other.kAlpha_;
+        kVi_ = other.kVi_;
+        dt_ = other.dt_;
+        numIterations_ = other.numIterations_;
+        robot_ = other.robot_->clone();
+    }
+    return *this;
+}
+
 void Posq::setParams(map<string, double> &params, AbstractRobot *robot) {
     kRho_ = params["krho"];
     kPhi_ = params["kphi"];
@@ -31,23 +54,6 @@ void Posq::setParams(map<string, double> &params, AbstractRobot *robot) {
 RobotState Posq::getLastRobotSate() {
     return foundTrajectory_.back();
 }
-
-
-Posq &Posq::operator=(const Posq &other) {
-    cout<<3<<endl;
-    if (this != &other) {
-        cout<<4<<endl;
-        kRho_ = other.kRho_;
-        kPhi_ = other.kPhi_;
-        kAlpha_ = other.kAlpha_;
-        kVi_ = other.kVi_;
-        dt_ = other.dt_;
-        numIterations_ = other.numIterations_;
-        robot_ = other.robot_->clone();
-    }
-    return *this;
-}
-
 
 bool Posq::steer(const RobotState &s1, const RobotState &s2, const Map &mp, double eps) {
     foundTrajectory_.clear();
@@ -92,15 +98,4 @@ double Posq::getPathCost() const {
 
 double Posq::simulationMaxDistance(){
     return dt_*numIterations_*(robot_->getMaxV());
-}
-
-Posq::Posq(const Posq &other) {
-    cout<<"2"<<endl;
-    kRho_ = other.kRho_;
-    kPhi_ = other.kPhi_;
-    kAlpha_ = other.kAlpha_;
-    kVi_ = other.kVi_;
-    dt_ = other.dt_;
-    numIterations_ = other.numIterations_;
-    robot_ = other.robot_->clone();
 }

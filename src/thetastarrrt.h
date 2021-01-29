@@ -7,10 +7,10 @@ public:
     ThetaStarRrt();
     ~ThetaStarRrt();
     ThetaStarRrt(const ThetaStarRrt &other);
+    ThetaStarRrt &operator = (const ThetaStarRrt &other);
     ThetaStarRrt(ThetaStar, Rrt);
     bool search(int stX, int stY, double stOrient, int goalX, int goalY, double goalOrient, const Map &mp);
     vector<State> getPath();
-    double times, times1;
 private:
     ThetaStar thetaStar_;
     Rrt rrt_;

@@ -4,12 +4,13 @@
 #include "node.h"
 #include "map.h"
 using namespace std;
+
 class ThetaStar{
 public:
     ThetaStar();
+    ~ThetaStar();
     ThetaStar(const ThetaStar &other);
     ThetaStar & operator=(const ThetaStar &other);
-    ~ThetaStar();
     bool search(const Map &mp, int st_x, int st_y, int nd_x, int nd_y);
     vector<Position> getGeoPath();
 private:
